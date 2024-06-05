@@ -1,14 +1,11 @@
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import filesize from 'rollup-plugin-filesize';
-import localResolve from 'rollup-plugin-local-resolve';
-import replace from "rollup-plugin-replace";
-import minify from 'rollup-plugin-babel-minify';
+import localResolve from  '@haensl/rollup-plugin-local-resolve'; 
 import typescript from "rollup-plugin-typescript2";
-import { terser } from "rollup-plugin-terser";
-import dts from "rollup-plugin-dts";
+import terser from "@rollup/plugin-terser";
 
 import packageJson from './package.json';
 
@@ -19,41 +16,7 @@ const outputCommonConf = {
   }
 };
 
-const config = {
-  input: 'src/index.js',
-  output: [
-    {
-      file: packageJson['umd:main'],
-      format: 'umd',
-      name: 'ReactScriptTag',
-      ...outputCommonConf
-    },
-    {
-      file: packageJson.main,
-      format: 'cjs',
-      ...outputCommonConf
-    },
-    {
-      file: packageJson.module,
-      format: 'es',
-      ...outputCommonConf
-    },
-  ],
-  plugins: [
-    peerDepsExternal(),
-    babel({ exclude: 'node_modules/**' }),
-    localResolve(),
-    resolve(),
-    commonjs({
-      include: /node_modules/
-    }),
-    replace({
-      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
-    }),
-    minify({ comments: false }),
-    filesize(),
-  ],
-};
+ 
 
 
 export default [
@@ -69,7 +32,8 @@ export default [
           {
             file: packageJson.main,
             format: 'cjs',
-            ...outputCommonConf
+            ...outputCommonConf,
+            exports: 'auto'
           },
           {
             file: packageJson.module,
@@ -78,8 +42,7 @@ export default [
           },
         ],
         plugins: [
-            peerDepsExternal(),
-            localResolve(),
+           
             babel({ 
             babelHelpers: 'external',
             presets: [
@@ -90,18 +53,16 @@ export default [
           }),
             resolve(),
             commonjs(),
-            typescript({ tsconfig: "./tsconfig.json" }),
-            minify({ comments: false }),
+            typescript({ tsconfig: "./tsconfig.json",
+            typescript: require("typescript"),
+          }),
+            peerDepsExternal(),
+            localResolve(),
+
             terser(),
             filesize(),
         ],
+        
         external: ["react", "react-dom", "styled-components"]
-    },
-    {
-        input: "lib/types/index.d.ts",
-        output: [{ file: "lib/react-script-tag.d.ts", format: "esm" }],
-        plugins: [dts()],
-    },
-    
-
+    }
 ];

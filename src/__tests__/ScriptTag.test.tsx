@@ -13,32 +13,21 @@ describe("<ScriptTag />", () => {
         expect(scriptTag).toBeDefined();
         expect(customRender).toBeDefined();
 
-        const hisHonorableForm = await findByTestId("his-honorable-form");
-        expect(hisHonorableForm).toHaveFormValues({
-            "honorable-input-username": "Edward Falesetien",
-        });
+        const hisHonorableForm = await findByTestId("custom-render");
+         
+        expect(hisHonorableForm).toBeDefined();
     });
 });
 
 function renderScriptTag() {
     const props: ScriptLoaderProps = {
-        src: "https://ercaws.com/time",
-        debug: true,
-        renderScript: true,
-        "data-testid": "script-tag-generated-tag",
-        render: (
+        src: "https://www.example.com/script.js",
+        otherProps: {
+            "data-testid": "script-tag-generated-tag"
+        },
+        children: (
             <div data-testid="custom-render">
-                <form data-testid="his-honorable-form">
-                    <label htmlFor="honorable-input-username">Name:</label>
-                    <input
-                        title="honorable-input"
-                        name="honorable-input-username"
-                        type="text"
-                        data-testid="his-honorable-input"
-                        value="Edward Falesetien"
-                    />
-                </form>
-            </div>
+            </div>  
         ),
     };
 

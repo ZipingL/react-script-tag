@@ -13,14 +13,11 @@ well.
 
 
 # Outside Change Log
-
+ - May 2024
+   - Refactored for better extensibility, readability, and usage of React 18 features.
  - Dec 2022
    - This is a really well written little tool that actually allows for script loading to at least feel some what asynchronously loadable. Just saw it fall out of date with its packages so updated them and also using typescript now. Creating a seperate NPM package for now but if the original author wants to add these changes I'll be more than happy to delete the npm package.
    
-
-
-
-
 Keywords: [Blazing fast](https://twitter.com/acdlite/status/974390255393505280)
 🔥, Minimal 📦, and Simple 🤖
 
