@@ -4,7 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import filesize from 'rollup-plugin-filesize';
 import localResolve from  '@haensl/rollup-plugin-local-resolve'; 
-import typescript from "rollup-plugin-typescript2";
+import typescript from  "@rollup/plugin-typescript";
 import terser from "@rollup/plugin-terser";
 
 import packageJson from './package.json';
@@ -46,7 +46,8 @@ export default [
         plugins: [
            
             babel({ 
-            babelHelpers: 'external',
+            
+            babelHelpers: 'bundled',
             presets: [
                 "@babel/preset-env",
                 "@babel/preset-react",
@@ -65,6 +66,6 @@ export default [
             filesize(),
         ],
         
-        external: ["react", "react-dom", "styled-components"]
+        external: ["react", "react-dom"],
     }
 ];

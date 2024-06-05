@@ -1,7 +1,7 @@
 {
   "name": "react-script-tag-18",
   "author": "Ziping Liu <ziping@linkedinliu.com>",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "description": "React Script Tag 18, updated a five year old package that had a very well written script loader tag utility for react, updating to now use TypeScript and React 18",
   "license": "MIT",
   "main": "lib/react-script-tag.js",
@@ -60,7 +60,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.6",
     "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^10.0.1",
+    "@rollup/plugin-typescript": "^11.1.6",
     "@svgr/webpack": "^6.5.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

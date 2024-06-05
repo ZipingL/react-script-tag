@@ -22,9 +22,7 @@ describe("<ScriptTag />", () => {
 function renderScriptTag() {
     const props: ScriptLoaderProps = {
         src: "https://www.example.com/script.js",
-        otherProps: {
-            "data-testid": "script-tag-generated-tag"
-        },
+        "data-testid": "script-tag-generated-tag",
         children: (
             <div data-testid="custom-render">
             </div>  
