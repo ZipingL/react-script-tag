@@ -26,7 +26,8 @@ export default [
           {
             file: packageJson['umd:main'],
             format: 'umd',
-            name: 'ReactScriptTag',
+            name: 'ScriptTag',
+            sourcemap: true,
             ...outputCommonConf
           },
           {
@@ -38,6 +39,7 @@ export default [
           {
             file: packageJson.module,
             format: 'es',
+          
             ...outputCommonConf
           },
         ],
