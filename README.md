@@ -53,7 +53,7 @@ will proceed to load your script.
 
 ``` jsx
 import React from 'react';
-import Script from 'react-script-tag-18';
+import ScriptTag from 'react-script-tag-18';
 
 const MyProfileComponent = () => {
     
@@ -73,12 +73,13 @@ const MyProfileComponent = () => {
                 
                 </div>
 
-            <ScriptLoader src="https://platform.linkedin.com/badges/js/profile.js" 
-            delayMs={30}
-            onLoad={() => {
-            console.log('My Profile.js script Loaded');
-            setJsLoaded(true); // set some state variable to initiate a re-render
-            }}
+            <ScriptTag src="https://platform.linkedin.com/badges/js/profile.js" 
+                delayMs={500}
+                onLoad={() => {
+                console.log('My Profile.js script Loaded');
+                setJsLoaded(true); // set some state variable to initiate a re-render
+                  }}
+                async={true}
              />
 
              </div>
@@ -94,7 +95,66 @@ export default MyProfileComponent;
 > will be appended each time the component mounts again. There are plans down
 > the road to prevent this.
 
-## Examples
+### CDN Example
+
+``` html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>react-script-tag-18 cdn demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-script-tag-18@5.2.0/lib/react-script-tag.umd.min.js"></script>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script async="true" type="text/javascript">
+      console.info('React version:', React.version);
+        const  ScriptTag = window.ScriptTag;
+        // state loaded
+      
+        const ScriptTagELemWrapperDiv =  () => {
+            const [loaded, setLoaded] = React.useState(false);
+            const [countdown, setCountdown] = React.useState(5);
+            React.useEffect(() => {
+                const interval = setInterval(() => {
+                    setCountdown((prevCountdown) => prevCountdown - 1);
+                }, 1000);
+                return () => clearInterval(interval);
+            }, []);
+            const ScriptTagElem = React.createElement('div', {
+                children: React.createElement(ScriptTag, {
+                    src: 'https://platform.twitter.com/widgets.js',
+                    type: 'text/javascript',
+                    async: true,
+                    delayMs: 4950,
+                    onLoad:() => {
+                        console.log('Script loaded');
+                        setLoaded(true);
+                    },
+                    children: loaded ? 'Script loaded' : 'Script will be loaded in ' + countdown + (countdown === 1 ? ' second' : ' seconds'),
+                }),
+
+            });
+            return ScriptTagElem;
+        }
+     
+
+
+        ReactDOM.render(React.createElement(ScriptTagELemWrapperDiv), document.getElementById('root'));
+
+
+
+    
+    </script>
+</body>
+
+</html>
+```
+
+## ~~Deprecated Examples~~
 
 At GumGum, we usually wrap the `Script` component as follow, to facilitate
 adding 3rd-parties. Here is an example, on how we add [Qualaroo](https://qualaroo.com/):
